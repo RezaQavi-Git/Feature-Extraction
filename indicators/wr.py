@@ -8,6 +8,7 @@ from utils import *
 from utils.basic import create_dataframe
 from utils.cross_value import cross_value_from_above, cross_value_from_bottom
 from utils.sum_in_period import *
+from utils.trending import trend_down, trend_up
 
 def wr(df):
     wr_value = ta.willr(df['high'], df['low'], df['close'])
@@ -21,6 +22,9 @@ def wr(df):
 
     positive_change_sum = sum_in_period_positive(wr_value, period=14)
     negative_change_sum = sum_in_period_negative(wr_value, period=14)
+
+    trending_up = trend_up(wr_value, period=14)
+    trending_down = trend_down(wr_value, period=14)
     d = {
         'wr_value': wr_value,
         'wr_cross_20_bottom': cross_20_bottom,
@@ -30,7 +34,9 @@ def wr(df):
         'wr_cross_80_bottom': cross_80_bottom,
         'wr_cross_80_above': cross_80_above,
         'wr_positive_change_sum': positive_change_sum,
-        'wr_negative_change_sum': negative_change_sum
+        'wr_negative_change_sum': negative_change_sum,
+        'wr_trending_up': trending_up,
+        'wr_trending_down': trending_down
     }
 
     return create_dataframe(d)

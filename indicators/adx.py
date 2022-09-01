@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 
 from utils import *
 from utils.basic import create_dataframe
+from utils.config import PERIOD
 from utils.cross_line import cross_line_from_above, cross_line_from_bottom
 from utils.cross_value import cross_value_from_above, cross_value_from_bottom
 from utils.difference_from_line import difference_from_line
@@ -28,8 +29,8 @@ def adx(df):
     DI_pos_top_neg = up_down_line(adx_value['DMP_14'], adx_value['DMN_14'])
     DI_neg_top_pos = up_down_line(adx_value['DMN_14'], adx_value['DMP_14'])
 
-    trending_up = trend_up(adx_value['ADX_14'], period=14)
-    trending_down = trend_down(adx_value['ADX_14'], period=14)
+    trending_up = trend_up(adx_value['ADX_14'], period=PERIOD)
+    trending_down = trend_down(adx_value['ADX_14'], period=PERIOD)
 
     d = {
         'adx_value': adx_value['ADX_14'],

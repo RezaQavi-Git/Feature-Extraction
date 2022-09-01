@@ -1,3 +1,6 @@
+from utils.config import WATCH_BACK_COLUMNS
+
+
 def cross_line_from_bottom(column, line):
     crossed = [0] * len(column)
     for i in range(1, len(column)):
@@ -14,7 +17,6 @@ def cross_line_from_above(column, line):
 
     return crossed
 
-WATCH_BACK_COLUMNS = 5
 def cross_line_bullish(column, line):
   crossed = [0] * len(column)
   for i in range(WATCH_BACK_COLUMNS, len(column)):

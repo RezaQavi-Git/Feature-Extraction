@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 
 from utils import *
 from utils.basic import create_dataframe
+from utils.config import PERIOD
 from utils.cross_value import cross_value_from_above, cross_value_from_bottom
 from utils.sum_in_period import *
 from utils.trending import trend_down, trend_up
@@ -20,11 +21,11 @@ def wr(df):
     cross_80_bottom = cross_value_from_bottom(wr_value, value=-80)
     cross_80_above = cross_value_from_above(wr_value, value=-80)
 
-    positive_change_sum = sum_in_period_positive(wr_value, period=14)
-    negative_change_sum = sum_in_period_negative(wr_value, period=14)
+    positive_change_sum = sum_in_period_positive(wr_value, period=PERIOD)
+    negative_change_sum = sum_in_period_negative(wr_value, period=PERIOD)
 
-    trending_up = trend_up(wr_value, period=14)
-    trending_down = trend_down(wr_value, period=14)
+    trending_up = trend_up(wr_value, period=PERIOD)
+    trending_down = trend_down(wr_value, period=PERIOD)
     d = {
         'wr_value': wr_value,
         'wr_cross_20_bottom': cross_20_bottom,

@@ -1,3 +1,4 @@
+import os
 from pyexpat import features
 import pandas as pd
 import pandas_ta as ta
@@ -20,6 +21,7 @@ from indicators.sma import sma
 from indicators.stoch import stoch
 from indicators.trend import trend
 from indicators.wr import wr
+from utils.config import DURATION, EXPORTS_FOLDER, FILE_PATH, WRITE_FILE_PATH
 
 
 
@@ -51,10 +53,13 @@ def fill_nan(df):
 
 
 def write_to_file(df, file_name):
-    df.to_csv(file_name, sep=',')
+    if not os.path.exists(EXPORTS_FOLDER):
+        os.mkdir(EXPORTS_FOLDER)
+    fullname = os.path.join(EXPORTS_FOLDER, file_name)   
+    df.to_csv(fullname, sep=',')
 
 def load_dataframe(name):
-    data= pd.read_csv('data\export_{0}_5m.csv'.format(name))
+    data= pd.read_csv(FILE_PATH.format(name, DURATION))
     df = pd.DataFrame(data)
 
     return df
@@ -79,7 +84,7 @@ def main():
         features = create_features_dataframe(df)
         extracted_df = pd.concat([df, features], axis=1)
 
-        write_to_file(extracted_df, '{0}.csv'.format(c))
+        write_to_file(extracted_df, WRITE_FILE_PATH.format(c))
 
 
 if __name__ == "__main__":

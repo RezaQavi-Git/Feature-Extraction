@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 
 from utils import *
 from utils.basic import create_dataframe
+from utils.config import PERIOD
 from utils.cross_value import cross_value_from_above, cross_value_from_bottom
 from utils.sum_in_period import *
 from utils.trending import trend_down, trend_up
@@ -20,11 +21,11 @@ def cci(df):
     cross_0_pos = cross_value_from_bottom(cci_value, value=0)
     cross_0_neg = cross_value_from_above(cci_value, value=0)
 
-    positive_change_sum = sum_in_period_positive(cci_value, period=14)
-    negative_change_sum = sum_in_period_negative(cci_value, period=14)
+    positive_change_sum = sum_in_period_positive(cci_value, period=PERIOD)
+    negative_change_sum = sum_in_period_negative(cci_value, period=PERIOD)
 
-    trending_up = trend_up(cci_value, period=14)
-    trending_down = trend_down(cci_value, period=14)
+    trending_up = trend_up(cci_value, period=PERIOD)
+    trending_down = trend_down(cci_value, period=PERIOD)
     d = {
         'cci_value': cci_value,
         'cci_cross_200_pos': cross_200_pos,

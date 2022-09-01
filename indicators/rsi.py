@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 
 from utils import *
 from utils.basic import create_dataframe
+from utils.config import PERIOD
 from utils.cross_value import cross_value_from_above, cross_value_from_bottom
 from utils.trending import trend_down, trend_up
 
@@ -37,11 +38,11 @@ def rsi(df):
     cross_70 = cross_value_from_bottom(rsi_value, value=70)
     cross_30 = cross_value_from_above(rsi_value, value=30)
 
-    num_of_candle_above_70 = count_above_candle(rsi_value, period=14, value=70)
-    num_of_candle_bellow_30 = count_bellow_candle(rsi_value, period=14, value=30)
+    num_of_candle_above_70 = count_above_candle(rsi_value, period=PERIOD, value=70)
+    num_of_candle_bellow_30 = count_bellow_candle(rsi_value, period=PERIOD, value=30)
 
-    trending_up = trend_up(rsi_value, period=14)
-    trending_down = trend_down(rsi_value, period=14)
+    trending_up = trend_up(rsi_value, period=PERIOD)
+    trending_down = trend_down(rsi_value, period=PERIOD)
     d = {
         'rsi_value': rsi_value,
         'rsi_crossed_70': cross_70,

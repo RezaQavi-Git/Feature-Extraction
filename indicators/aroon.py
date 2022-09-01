@@ -16,7 +16,7 @@ from utils.up_down import up_down_line
 
 
 def aroon(df):
-    aroon_value = ta.aroon(df['close'], df['low'])
+    aroon_value = ta.aroon(df['close'], df['low'], fillna=0)
 
     diff_from_up = difference_from_value(df['close'], 100)
     diff_from_down = difference_from_value(df['close'], 0)

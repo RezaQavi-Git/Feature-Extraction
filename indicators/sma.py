@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 
 from utils import *
 from utils.basic import create_dataframe
+from utils.cross_line import cross_line_bearish, cross_line_bullish
 from utils.difference_from_line import difference_from_line
 from utils.sum_in_period import *
 
@@ -29,7 +30,6 @@ def sma(df):
     cross_line_bullish_5_100 = cross_line_bullish(sma_value_5, sma_value_100)
     cross_line_bearish_5_100 = cross_line_bearish(sma_value_5, sma_value_100)
 
-    # TODO 
     d = {
         'sma_value_5': sma_value_5,
         'sma_diff_from_price': diff_from_price,

@@ -6,16 +6,17 @@ import matplotlib.pyplot as plt
 
 from utils import *
 from utils.basic import create_dataframe
+from utils.cross_line import cross_line_bearish, cross_line_bullish
 from utils.cross_value import cross_value_from_above, cross_value_from_bottom
 from utils.difference_from_line import difference_from_line
 from utils.sum_in_period import *
 
 def ema(df):
-    ema_value_5 = ta.ema(df['close'], length=5)
-    ema_value_10 = ta.ema(df['close'], length=10)
-    ema_value_20 = ta.ema(df['close'], length=20)
-    ema_value_50 = ta.ema(df['close'], length=50)
-    ema_value_100 = ta.ema(df['close'], length=100)
+    ema_value_5 = ta.ema(df['close'], length=5, fillna=0)
+    ema_value_10 = ta.ema(df['close'], length=10, fillna=0)
+    ema_value_20 = ta.ema(df['close'], length=20, fillna=0)
+    ema_value_50 = ta.ema(df['close'], length=50, fillna=0)
+    ema_value_100 = ta.ema(df['close'], length=100, fillna=0)
 
     diff_from_price = difference_from_line(ema_value_5, df['close'])
     cross_line_bullish_5_10 = cross_line_bullish(ema_value_5, ema_value_10)
@@ -30,10 +31,9 @@ def ema(df):
     cross_line_bullish_5_100 = cross_line_bullish(ema_value_5, ema_value_100)
     cross_line_bearish_5_100 = cross_line_bearish(ema_value_5, ema_value_100)
 
-    # TODO 
     d = {
         'ema_value_5': ema_value_5,
-        'ema_diff_from_price': diff_from_price,
+        'ema_diff_from_price_percent': diff_from_price,
         'ema_cross_line_bullish_5_10': cross_line_bullish_5_10,
         'ema_cross_line_bearish_5_10': cross_line_bearish_5_10,
         'ema_cross_line_bullish_5_20': cross_line_bullish_5_20,

@@ -8,6 +8,7 @@ from utils import *
 from utils.basic import create_dataframe
 from utils.cross_value import cross_value_from_above, cross_value_from_bottom
 from utils.sum_in_period import *
+from utils.trending import trend_down, trend_up
 
 def cci(df):
     cci_value = ta.cci(df['high'], df['low'], df['close'])
@@ -21,7 +22,9 @@ def cci(df):
 
     positive_change_sum = sum_in_period_positive(cci_value, period=14)
     negative_change_sum = sum_in_period_negative(cci_value, period=14)
-    # TODO 
+
+    trending_up = trend_up(cci_value, period=14)
+    trending_down = trend_down(cci_value, period=14)
     d = {
         'cci_value': cci_value,
         'cci_cross_200_pos': cross_200_pos,
@@ -31,7 +34,9 @@ def cci(df):
         'cci_cross_0_pos': cross_0_pos,
         'cci_cross_0_neg': cross_0_neg,
         'cci_positive_change_sum': positive_change_sum,
-        'cci_negative_change_sum': negative_change_sum
+        'cci_negative_change_sum': negative_change_sum,
+        'cci_trending_up': trending_up,
+        'cci_trending_down': trending_down
     }
 
     return create_dataframe(d)

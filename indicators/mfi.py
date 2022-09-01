@@ -17,7 +17,7 @@ def mfi(df):
 
     positive_change_sum = sum_in_period_positive(mfi_value, period=14)
     negative_change_sum = sum_in_period_negative(mfi_value, period=14)
-
+    # TODO 
     d = {
         'mfi_value': mfi_value,
         'mfi_crossed_80': cross_80,

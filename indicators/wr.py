@@ -1,0 +1,36 @@
+import pandas as pd
+import pandas_ta as ta
+import matplotlib.pyplot as plt
+import matplotlib.dates as mpl_dates
+import matplotlib.pyplot as plt
+
+from utils import *
+from utils.basic import create_dataframe
+from utils.cross_value import cross_value_from_above, cross_value_from_bottom
+from utils.sum_in_period import *
+
+def wr(df):
+    wr_value = ta.willr(df['high'], df['low'], df['close'])
+
+    cross_20_bottom = cross_value_from_bottom(wr_value, value=-20)
+    cross_20_above = cross_value_from_above(wr_value, value=-20)
+    cross_50_bottom = cross_value_from_bottom(wr_value, value=-50)
+    cross_50_above = cross_value_from_above(wr_value, value=-50)
+    cross_80_bottom = cross_value_from_bottom(wr_value, value=-80)
+    cross_80_above = cross_value_from_above(wr_value, value=-80)
+
+    positive_change_sum = sum_in_period_positive(wr_value, period=14)
+    negative_change_sum = sum_in_period_negative(wr_value, period=14)
+    d = {
+        'wr_value': wr_value,
+        'wr_cross_20_bottom': cross_20_bottom,
+        'wr_cross_20_above': cross_20_above,
+        'wr_cross_50_bottom': cross_50_bottom,
+        'wr_cross_50_above': cross_50_above,
+        'wr_cross_80_bottom': cross_80_bottom,
+        'wr_cross_80_above': cross_80_above,
+        'wr_positive_change_sum': positive_change_sum,
+        'wr_negative_change_sum': negative_change_sum
+    }
+
+    return create_dataframe(d)

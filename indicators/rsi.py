@@ -39,6 +39,7 @@ def rsi(df):
     num_of_candle_above_70 = count_above_candle(rsi_value, period=14, value=70)
     num_of_candle_bellow_30 = count_bellow_candle(rsi_value, period=14, value=30)
 
+    # TODO
     d = {
         'rsi_value': rsi_value,
         'rsi_crossed_70': cross_70,

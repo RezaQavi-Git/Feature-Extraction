@@ -21,6 +21,9 @@ def aroon(df):
     diff_from_up = difference_from_value(df['close'], 100)
     diff_from_down = difference_from_value(df['close'], 0)
 
+    up_cross_70 = cross_value_from_bottom(aroon_value, value=70)
+    down_cross_70 = cross_value_from_above(aroon_value, value=70)
+
     up_cross_down_above = cross_line_from_above(aroon_value['AROONU_14'], aroon_value['AROOND_14'])
     up_cross_down_below = cross_line_from_bottom(aroon_value['AROONU_14'], aroon_value['AROOND_14'])
 
@@ -30,6 +33,8 @@ def aroon(df):
     d = {
         'aroon_up_value': aroon_value['AROONU_14'],
         'aroon_down_value': aroon_value['AROOND_14'],
+        'aroon_up_cross_70': up_cross_70,
+        'aroon_down_cross_70': down_cross_70,
         'aroon_diff_from_up': diff_from_up,
         'aroon_diff_from_down': diff_from_down,
         'aroon_up_cross_down_above': up_cross_down_above,

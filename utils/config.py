@@ -9,5 +9,5 @@ PERIOD = 14
 DURATION = '5m'
 FILE_PATH = 'data\export_{0}_{1}.csv'
 
-EXPORTS_FOLDER = './exports'
+EXPORTS_FOLDER = './extracts'
 WRITE_FILE_PATH = '{0}.csv'

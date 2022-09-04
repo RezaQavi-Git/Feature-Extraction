@@ -78,13 +78,18 @@ def create_features_dataframe(df):
 
 
 def main():
+    print('Start extrarting features : ...')
     for c in coins:
+        print('\t Strat {0} feature extraction . . . '.format(c))
         df = load_dataframe(c)
 
         features = create_features_dataframe(df)
         extracted_df = pd.concat([df, features], axis=1)
 
         write_to_file(extracted_df, WRITE_FILE_PATH.format(c))
+        print('\t Stop {0} feature extraction.You can find result in this path : {1}'.format(c, WRITE_FILE_PATH.format(c)))
+
+    print('\t End of extraction. enjoy :)')
 
 
 if __name__ == "__main__":

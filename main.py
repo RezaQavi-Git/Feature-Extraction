@@ -4,6 +4,10 @@ import pandas_ta as ta
 import matplotlib.pyplot as plt
 import matplotlib.dates as mpl_dates
 import matplotlib.pyplot as plt
+import csv
+import requests
+import io
+
 
 from indicators.additional import additional
 from indicators.adx import adx
@@ -20,31 +24,31 @@ from indicators.sma import sma
 from indicators.stoch import stoch
 from indicators.trend import trend
 from indicators.wr import wr
-from utils.config import DURATION, EXPORTS_FOLDER, FILE_PATH, WRITE_FILE_PATH
+from utils.config import DURATION, EXPORTS_FOLDER, FILE_PATH, GET_URL, WRITE_FILE_PATH
 
 
 
 coins = [
     'BTCUSDT',
-    'ETHUSDT',
-    'ADAUSDT'
+    # 'ETHUSDT',
+    # 'ADAUSDT'
 ]
 
 functions = [
     additional,
-    adx,
-    aroon,
-    bb,
-    cci,
-    ema,
-    ichimoku,
-    macd,
-    mfi,
-    rsi,
-    sma,
-    stoch,
-    wr,
-    trend
+    # adx,
+    # aroon,
+    # bb,
+    # cci,
+    # ema,
+    # ichimoku,
+    # macd,
+    # mfi,
+    # rsi,
+    # sma,
+    # stoch,
+    # wr,
+    # trend
 ]
 
 def fill_nan(df):
@@ -58,10 +62,20 @@ def write_to_file(df, file_name):
     df.to_csv(fullname, sep=',')
 
 def load_dataframe(name):
-    data= pd.read_csv(FILE_PATH.format(name, DURATION))
+
+    # Read Data from url
+    response = requests.get(GET_URL.format(name, DURATION))
+    csv_attached = response.content.decode('utf-8')
+    data = pd.read_csv(io.StringIO(csv_attached))
     df = pd.DataFrame(data)
 
     return df
+
+    # # Read data locally
+    # data= pd.read_csv(FILE_PATH.format(name, DURATION))
+    # df = pd.DataFrame(data)
+
+    # return df
 
 def create_features_dataframe(df):
     features_df = pd.DataFrame()
@@ -85,10 +99,10 @@ def main():
         features = create_features_dataframe(df)
         extracted_df = pd.concat([df, features], axis=1)
 
-        write_to_file(extracted_df, WRITE_FILE_PATH.format(c))
-        print('\t Stop {0} feature extraction.You can find result in this path : {1}'.format(c, WRITE_FILE_PATH.format(c)))
+        write_to_file(extracted_df, WRITE_FILE_PATH.format(c, DURATION))
+        print('\t Stop {0} feature extraction.You can find result in this path : {1}'.format(c, EXPORTS_FOLDER + '/' + WRITE_FILE_PATH.format(c, DURATION)))
 
-    print('\t End of extraction. enjoy :)')
+    print('End of extraction. enjoy :)')
 
 
 if __name__ == "__main__":

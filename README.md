@@ -7,7 +7,7 @@ $git clone https://github.com/RezaQavi-git/featuer-extraction.git
 $cd feature-extraction
 $python3.6 main.py
 ```
-features will extract to this path '/exported/COINNAME.csv'
+features will extract to this path '/extracts/extracted_{COINNAME}_{DURATION}.csv'
     
 
 to edit list of coins : ""edit coins list in main.py""

@@ -12,7 +12,7 @@ from utils.sum_in_period import *
 from utils.trending import trend_down, trend_up
 
 def mfi(df):
-    mfi_value = ta.mfi(df['high'], df['low'], df['close'], df['volume'])
+    mfi_value = ta.mfi(df['high'], df['low'], df['close'], df['volume'], fillna=0)
 
     cross_80 = cross_value_from_bottom(mfi_value, value=80)
     cross_20 = cross_value_from_above(mfi_value, value=20)

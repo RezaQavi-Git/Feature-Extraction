@@ -28,7 +28,7 @@ def band_expanding_tightening(upper, lower, period):
 
 
 def bb(df):
-    bb_value = ta.bbands(df['close'])
+    bb_value = ta.bbands(df['close'], fillna=0)
 
     diff_from_upper_band = difference_from_line(df['close'], bb_value['BBU_5_2.0'])
     diff_from_lower_band = difference_from_line(df['close'], bb_value['BBL_5_2.0'])

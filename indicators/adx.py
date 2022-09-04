@@ -18,7 +18,7 @@ from utils.up_down import up_down_line
 
 
 def adx(df):
-    adx_value = ta.adx(df['high'], df['low'], df['close'])
+    adx_value = ta.adx(df['high'], df['low'], df['close'], fillna=0)
 
     diff_DI_pos_from_neg = difference_from_line(adx_value['DMP_14'], adx_value['DMN_14'])
     diff_from_down = difference_from_value(df['close'], 0)

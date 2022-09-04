@@ -21,7 +21,8 @@ def cloud_color_detection(close, span_A, span_B):
     return color
 
 def ichimoku(df):
-    ichimoku_value = ta.ichimoku(df['high'], df['low'], df['close'])
+    ichimoku_value = ta.ichimoku(df['high'], df['low'], df['close'], fillna=0)
+    
     diff_tenkan_sen_with_close = difference_from_line(ichimoku_value[0]['ITS_9'], df['close'])
     diff_kijun_sen_with_close = difference_from_line(ichimoku_value[0]['IKS_26'], df['close'])
     diff_span_A_with_close = difference_from_line(ichimoku_value[0]['ISA_9'], df['close'])

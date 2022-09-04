@@ -16,7 +16,7 @@ from utils.up_down import up_down_line
 
 
 def macd(df):
-    macd_value = ta.macd(df['close'])
+    macd_value = ta.macd(df['close'], fillna=0)
 
     value_cross_0_above = cross_value_from_above(macd_value['MACD_12_26_9'], 0)
     value_cross_0_bottom = cross_value_from_bottom(macd_value['MACD_12_26_9'], 0)

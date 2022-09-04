@@ -1,5 +1,4 @@
 import os
-from pyexpat import features
 import pandas as pd
 import pandas_ta as ta
 import matplotlib.pyplot as plt

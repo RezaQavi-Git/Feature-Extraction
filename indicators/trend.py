@@ -12,19 +12,16 @@ from utils.cross_value import cross_value_from_above, cross_value_from_bottom
 from utils.sum_in_period import *
 from utils.trending import trend_down, trend_neutral, trend_up
 
-SHORT = 5
-MID = 14
-LONG = 28
 
 def trend(df):
+    # you can choose between periods set in ./utils/config.py [LONG_TERM, LONG_TERM_40, LONG_TERM_50, LONG_TERM_100, LONG_TERM_200]
+    short_trend_up = trend_up(df[CLOSE_COLUMN], period=SHORT_TERM)
+    mid_trend_up = trend_up(df[CLOSE_COLUMN], period=MID_TERM)
+    long_trend_up = trend_up(df[CLOSE_COLUMN], period=LONG_TERM)
 
-    short_trend_up = trend_up(df[CLOSE_COLUMN], period=SHORT)
-    mid_trend_up = trend_up(df[CLOSE_COLUMN], period=MID)
-    long_trend_up = trend_up(df[CLOSE_COLUMN], period=LONG)
-
-    short_trend_down = trend_down(df[CLOSE_COLUMN], period=SHORT)
-    mid_trend_down = trend_down(df[CLOSE_COLUMN], period=MID)
-    long_trend_down = trend_down(df[CLOSE_COLUMN], period=LONG)
+    short_trend_down = trend_down(df[CLOSE_COLUMN], period=SHORT_TERM)
+    mid_trend_down = trend_down(df[CLOSE_COLUMN], period=MID_TERM)
+    long_trend_down = trend_down(df[CLOSE_COLUMN], period=LONG_TERM)
 
     short_trend_neutral = trend_neutral(short_trend_up, short_trend_down)
     mid_trend_neutral = trend_neutral(mid_trend_up, mid_trend_down)

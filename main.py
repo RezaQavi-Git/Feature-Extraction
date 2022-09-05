@@ -30,25 +30,25 @@ from utils.config import DURATION, EXPORTS_FOLDER, FILE_PATH, GET_URL, WRITE_FIL
 
 coins = [
     'BTCUSDT',
-    # 'ETHUSDT',
-    # 'ADAUSDT'
+    'ETHUSDT',
+    'ADAUSDT'
 ]
 
 functions = [
     additional,
-    # adx,
-    # aroon,
-    # bb,
-    # cci,
-    # ema,
-    # ichimoku,
-    # macd,
-    # mfi,
-    # rsi,
-    # sma,
-    # stoch,
-    # wr,
-    # trend
+    adx,
+    aroon,
+    bb,
+    cci,
+    ema,
+    ichimoku,
+    macd,
+    mfi,
+    rsi,
+    sma,
+    stoch,
+    wr,
+    trend
 ]
 
 def fill_nan(df):
@@ -64,6 +64,8 @@ def write_to_file(df, file_name):
 def load_dataframe(name):
 
     # Read Data from url
+    # if you want use this project beside an external source, you can use this function
+    # for config, see config.py
     response = requests.get(GET_URL.format(name, DURATION))
     csv_attached = response.content.decode('utf-8')
     data = pd.read_csv(io.StringIO(csv_attached))
@@ -72,6 +74,8 @@ def load_dataframe(name):
     return df
 
     # # Read data locally
+    # # To run locally, you can placed your files near main file, and set configs in config.py
+    # # then run and this project will read files and return result 
     # data= pd.read_csv(FILE_PATH.format(name, DURATION))
     # df = pd.DataFrame(data)
 

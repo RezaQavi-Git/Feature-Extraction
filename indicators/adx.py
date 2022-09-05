@@ -14,14 +14,15 @@ from utils.difference_from_value import difference_from_value
 from utils.sum_in_period import *
 from utils.trending import trend_down, trend_up
 from utils.up_down import up_down_line
+from utils.config import *
 
 
 
 def adx(df):
-    adx_value = ta.adx(df['high'], df['low'], df['close'], fillna=0)
+    adx_value = ta.adx(df[HIGH_COLUMN], df[LOW_COLUMN], df[CLOSE_COLUMN], fillna=0)
 
     diff_DI_pos_from_neg = difference_from_line(adx_value['DMP_14'], adx_value['DMN_14'])
-    diff_from_down = difference_from_value(df['close'], 0)
+    diff_from_down = difference_from_value(df[CLOSE_COLUMN], 0)
 
     DI_pos_cross_neg_above = cross_line_from_above(adx_value['DMP_14'], adx_value['DMN_14'])
     DI_pos_cross_neg_bottom = cross_line_from_bottom(adx_value['DMP_14'], adx_value['DMN_14'])

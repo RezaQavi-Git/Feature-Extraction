@@ -3,6 +3,7 @@ import pandas_ta as ta
 import matplotlib.pyplot as plt
 import matplotlib.dates as mpl_dates
 import matplotlib.pyplot as plt
+from utils.config import *
 
 from utils import *
 from utils.basic import create_dataframe
@@ -28,18 +29,18 @@ def band_expanding_tightening(upper, lower, period):
 
 
 def bb(df):
-    bb_value = ta.bbands(df['close'], fillna=0)
+    bb_value = ta.bbands(df[CLOSE_COLUMN], fillna=0)
 
-    diff_from_upper_band = difference_from_line(df['close'], bb_value['BBU_5_2.0'])
-    diff_from_lower_band = difference_from_line(df['close'], bb_value['BBL_5_2.0'])
+    diff_from_upper_band = difference_from_line(df[CLOSE_COLUMN], bb_value['BBU_5_2.0'])
+    diff_from_lower_band = difference_from_line(df[CLOSE_COLUMN], bb_value['BBL_5_2.0'])
 
-    diff_from_lower_band = difference_from_line(df['close'], bb_value['BBL_5_2.0'])
-    diff_from_lower_band = difference_from_line(df['close'], bb_value['BBL_5_2.0'])
+    diff_from_lower_band = difference_from_line(df[CLOSE_COLUMN], bb_value['BBL_5_2.0'])
+    diff_from_lower_band = difference_from_line(df[CLOSE_COLUMN], bb_value['BBL_5_2.0'])
 
     band_state = band_expanding_tightening(bb_value['BBU_5_2.0'], bb_value['BBL_5_2.0'], period=PERIOD)
 
-    price_cross_upper_band_bullish = cross_line_bullish(df['close'], bb_value['BBU_5_2.0'])
-    price_cross_lower_band_bearish = cross_line_bearish(df['close'], bb_value['BBU_5_2.0'])
+    price_cross_upper_band_bullish = cross_line_bullish(df[CLOSE_COLUMN], bb_value['BBU_5_2.0'])
+    price_cross_lower_band_bearish = cross_line_bearish(df[CLOSE_COLUMN], bb_value['BBU_5_2.0'])
 
     d = {
         'bb_upper_value': bb_value['BBU_5_2.0'],

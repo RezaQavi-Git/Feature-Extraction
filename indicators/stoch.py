@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mpl_dates
 import matplotlib.pyplot as plt
 
+from utils.config import *
+
 from utils import *
 from utils.basic import create_dataframe
 from utils.cross_line import cross_line_bearish, cross_line_bullish, cross_line_from_above, cross_line_from_bottom
@@ -14,8 +16,8 @@ STOCH_K_DEFULT = 14
 STOCH_D_DEFULT = 3
 
 def stoch(df):
-    stoch_value = ta.stoch(df['high'], df['low'], df['close'], k=STOCH_K_DEFULT, d=STOCH_D_DEFULT, fillna=0)
-    stochrsi_value = ta.stochrsi(df['close'], k=STOCH_K_DEFULT, d=STOCH_D_DEFULT, fillna=0)
+    stoch_value = ta.stoch(df[HIGH_COLUMN], df[LOW_COLUMN], df[CLOSE_COLUMN], k=STOCH_K_DEFULT, d=STOCH_D_DEFULT, fillna=0)
+    stochrsi_value = ta.stochrsi(df[CLOSE_COLUMN], k=STOCH_K_DEFULT, d=STOCH_D_DEFULT, fillna=0)
     extra = pd.Series([0] * (STOCH_K_DEFULT-1))
     stoch_k = pd.concat([extra,stoch_value['STOCHk_14_3_3']],axis=0)
     stoch_d = pd.concat([extra,stoch_value['STOCHd_14_3_3']],axis=0)

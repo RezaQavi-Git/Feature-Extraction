@@ -3,6 +3,7 @@ import pandas_ta as ta
 import matplotlib.pyplot as plt
 import matplotlib.dates as mpl_dates
 import matplotlib.pyplot as plt
+from utils.config import *
 
 from utils import *
 from utils.basic import create_dataframe
@@ -12,7 +13,7 @@ from utils.sum_in_period import *
 from utils.trending import trend_down, trend_up
 
 def mfi(df):
-    mfi_value = ta.mfi(df['high'], df['low'], df['close'], df['volume'], fillna=0)
+    mfi_value = ta.mfi(df[HIGH_COLUMN], df[LOW_COLUMN], df[CLOSE_COLUMN], df[VOLUME_COLUMN], fillna=0)
 
     cross_80 = cross_value_from_bottom(mfi_value, value=80)
     cross_20 = cross_value_from_above(mfi_value, value=20)

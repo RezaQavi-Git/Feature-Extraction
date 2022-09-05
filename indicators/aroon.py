@@ -3,6 +3,7 @@ import pandas_ta as ta
 import matplotlib.pyplot as plt
 import matplotlib.dates as mpl_dates
 import matplotlib.pyplot as plt
+from utils.config import *
 
 from utils import *
 from utils.basic import create_dataframe
@@ -16,10 +17,10 @@ from utils.up_down import up_down_line
 
 
 def aroon(df):
-    aroon_value = ta.aroon(df['close'], df['low'], fillna=0)
+    aroon_value = ta.aroon(df[CLOSE_COLUMN], df[LOW_COLUMN], fillna=0)
 
-    diff_from_up = difference_from_value(df['close'], 100)
-    diff_from_down = difference_from_value(df['close'], 0)
+    diff_from_up = difference_from_value(df[CLOSE_COLUMN], 100)
+    diff_from_down = difference_from_value(df[CLOSE_COLUMN], 0)
 
     up_cross_70 = cross_value_from_bottom(aroon_value['AROONU_14'], value=70)
     down_cross_70 = cross_value_from_above(aroon_value['AROOND_14'], value=70)

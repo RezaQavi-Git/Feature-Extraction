@@ -3,6 +3,7 @@ import pandas_ta as ta
 import matplotlib.pyplot as plt
 import matplotlib.dates as mpl_dates
 import matplotlib.pyplot as plt
+from utils.config import *
 
 from utils import *
 from utils.basic import create_dataframe
@@ -12,13 +13,13 @@ from utils.difference_from_line import difference_from_line
 from utils.sum_in_period import *
 
 def ema(df):
-    ema_value_5 = ta.ema(df['close'], length=5, fillna=0)
-    ema_value_10 = ta.ema(df['close'], length=10, fillna=0)
-    ema_value_20 = ta.ema(df['close'], length=20, fillna=0)
-    ema_value_50 = ta.ema(df['close'], length=50, fillna=0)
-    ema_value_100 = ta.ema(df['close'], length=100, fillna=0)
+    ema_value_5 = ta.ema(df[CLOSE_COLUMN], length=5, fillna=0)
+    ema_value_10 = ta.ema(df[CLOSE_COLUMN], length=10, fillna=0)
+    ema_value_20 = ta.ema(df[CLOSE_COLUMN], length=20, fillna=0)
+    ema_value_50 = ta.ema(df[CLOSE_COLUMN], length=50, fillna=0)
+    ema_value_100 = ta.ema(df[CLOSE_COLUMN], length=100, fillna=0)
 
-    diff_from_price = difference_from_line(ema_value_5, df['close'])
+    diff_from_price = difference_from_line(ema_value_5, df[CLOSE_COLUMN])
     cross_line_bullish_5_10 = cross_line_bullish(ema_value_5, ema_value_10)
     cross_line_bearish_5_10 = cross_line_bearish(ema_value_5, ema_value_10)
 

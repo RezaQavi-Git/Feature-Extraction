@@ -4,6 +4,9 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mpl_dates
 import matplotlib.pyplot as plt
 
+
+from utils.config import *
+
 from utils import *
 from utils.basic import create_dataframe
 from utils.config import PERIOD
@@ -12,7 +15,7 @@ from utils.sum_in_period import *
 from utils.trending import trend_down, trend_up
 
 def wr(df):
-    wr_value = ta.willr(df['high'], df['low'], df['close'], fillna=0)
+    wr_value = ta.willr(df[HIGH_COLUMN], df[LOW_COLUMN], df[CLOSE_COLUMN], fillna=0)
 
     cross_20_bottom = cross_value_from_bottom(wr_value, value=-20)
     cross_20_above = cross_value_from_above(wr_value, value=-20)

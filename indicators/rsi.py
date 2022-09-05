@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mpl_dates
 import matplotlib.pyplot as plt
 
+from utils.config import *
+
 from utils import *
 from utils.basic import create_dataframe
 from utils.config import PERIOD
@@ -33,7 +35,7 @@ def count_bellow_candle(l, period, value):
     return counts
 
 def rsi(df):
-    rsi_value = ta.rsi(df['close'], fillna=0)
+    rsi_value = ta.rsi(df[CLOSE_COLUMN], fillna=0)
 
     cross_70 = cross_value_from_bottom(rsi_value, value=70)
     cross_30 = cross_value_from_above(rsi_value, value=30)

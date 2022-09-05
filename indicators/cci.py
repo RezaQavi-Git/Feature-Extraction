@@ -3,6 +3,7 @@ import pandas_ta as ta
 import matplotlib.pyplot as plt
 import matplotlib.dates as mpl_dates
 import matplotlib.pyplot as plt
+from utils.config import *
 
 from utils import *
 from utils.basic import create_dataframe
@@ -12,7 +13,7 @@ from utils.sum_in_period import *
 from utils.trending import trend_down, trend_up
 
 def cci(df):
-    cci_value = ta.cci(df['high'], df['low'], df['close'], fillna=0)
+    cci_value = ta.cci(df[HIGH_COLUMN], df[LOW_COLUMN], df[CLOSE_COLUMN], fillna=0)
 
     cross_200_pos = cross_value_from_bottom(cci_value, value=200)
     cross_200_neg = cross_value_from_above(cci_value, value=-200)

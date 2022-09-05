@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mpl_dates
 import matplotlib.pyplot as plt
 
+from utils.config import *
+
 from utils import *
 from utils.basic import create_dataframe
 from utils.cross_line import cross_line_bearish, cross_line_bullish, cross_line_from_above, cross_line_from_bottom
@@ -16,7 +18,7 @@ from utils.up_down import up_down_line
 
 
 def macd(df):
-    macd_value = ta.macd(df['close'], fillna=0)
+    macd_value = ta.macd(df[CLOSE_COLUMN], fillna=0)
 
     value_cross_0_above = cross_value_from_above(macd_value['MACD_12_26_9'], 0)
     value_cross_0_bottom = cross_value_from_bottom(macd_value['MACD_12_26_9'], 0)

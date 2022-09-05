@@ -1,4 +1,12 @@
 
+OPEN_COLUMN = 'open'
+CLOSE_COLUMN = 'close'
+HIGH_COLUMN = 'high'
+LOW_COLUMN = 'low'
+VOLUME_COLUMN = 'volume'
+
+
+
 SHORT_TERM = 5 
 MID_TERM = 14
 LONG_TERM = 28

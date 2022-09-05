@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mpl_dates
 import matplotlib.pyplot as plt
 
+from utils.config import *
+
 from utils import *
 from utils.basic import create_dataframe
 from utils.cross_value import cross_value_from_above, cross_value_from_bottom
@@ -16,13 +18,13 @@ LONG = 28
 
 def trend(df):
 
-    short_trend_up = trend_up(df['close'], period=SHORT)
-    mid_trend_up = trend_up(df['close'], period=MID)
-    long_trend_up = trend_up(df['close'], period=LONG)
+    short_trend_up = trend_up(df[CLOSE_COLUMN], period=SHORT)
+    mid_trend_up = trend_up(df[CLOSE_COLUMN], period=MID)
+    long_trend_up = trend_up(df[CLOSE_COLUMN], period=LONG)
 
-    short_trend_down = trend_down(df['close'], period=SHORT)
-    mid_trend_down = trend_down(df['close'], period=MID)
-    long_trend_down = trend_down(df['close'], period=LONG)
+    short_trend_down = trend_down(df[CLOSE_COLUMN], period=SHORT)
+    mid_trend_down = trend_down(df[CLOSE_COLUMN], period=MID)
+    long_trend_down = trend_down(df[CLOSE_COLUMN], period=LONG)
 
     short_trend_neutral = trend_neutral(short_trend_up, short_trend_down)
     mid_trend_neutral = trend_neutral(mid_trend_up, mid_trend_down)

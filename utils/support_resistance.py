@@ -17,6 +17,14 @@ def is_far_from_level(value, levels, df):
   ave =  np.mean(df[HIGH_COLUMN] - df[LOW_COLUMN])    
   return np.sum([abs(value-level)<ave for _,level in levels])==0
 
+def find_SR(closePrice, period):
+    sr = []
+    for i in range(period, len(closePrice)-period):
+        if closePrice[i] >= max(closePrice[i-period:i+period]) or closePrice[i] <= min(closePrice[i-period:i+period]):
+            sr.append(closePrice[i])
+    return sr
+
+
 
 def find_support_resistance_levels(df):
     levels = []

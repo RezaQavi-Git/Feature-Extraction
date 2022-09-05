@@ -24,14 +24,15 @@ from indicators.sma import sma
 from indicators.stoch import stoch
 from indicators.trend import trend
 from indicators.wr import wr
+from indicators.SR import SR
 from utils.config import DURATION, EXPORTS_FOLDER, FILE_PATH, GET_URL, WRITE_FILE_PATH
 
 
 
 coins = [
     'BTCUSDT',
-    # 'ETHUSDT',
-    # 'ADAUSDT'
+    'ETHUSDT',
+    'ADAUSDT'
 ]
 
 functions = [
@@ -48,7 +49,8 @@ functions = [
     sma,
     stoch,
     wr,
-    trend
+    trend,
+    SR
 ]
 
 def fill_nan(df):
@@ -63,9 +65,9 @@ def write_to_file(df, file_name):
 
 def load_dataframe(name):
 
-    # # Read Data from url
-    # # if you want use this project beside an external source, you can use this function
-    # # for config, see config.py
+        # # Read Data from url
+        # # if you want use this project beside an external source, you can use this function
+        # # for config, see config.py
     # response = requests.get(GET_URL.format(name, DURATION))
     # csv_attached = response.content.decode('utf-8')
     # data = pd.read_csv(io.StringIO(csv_attached))
@@ -73,9 +75,9 @@ def load_dataframe(name):
 
     # return df
 
-    # Read data locally
-    # To run locally, you can placed your files near main file, and set configs in config.py
-    # then run and this project will read files and return result 
+        # Read data locally
+        # To run locally, you can placed your files near main file, and set configs in config.py
+        # then run and this project will read files and return result 
     data= pd.read_csv(FILE_PATH.format(name, DURATION))
     df = pd.DataFrame(data)
 

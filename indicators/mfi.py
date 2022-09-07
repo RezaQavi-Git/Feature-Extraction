@@ -1,5 +1,5 @@
 import pandas as pd
-# import pandas_ta as ta
+
 from ta.momentum import RSIIndicator, StochRSIIndicator, WilliamsRIndicator, AwesomeOscillatorIndicator
 from ta.volume import MFIIndicator, OnBalanceVolumeIndicator
 import matplotlib.pyplot as plt

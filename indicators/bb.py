@@ -1,5 +1,5 @@
 import pandas as pd
-# import pandas_ta as ta
+
 from ta.volatility import BollingerBands
 import matplotlib.pyplot as plt
 import matplotlib.dates as mpl_dates

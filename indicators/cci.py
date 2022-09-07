@@ -1,5 +1,5 @@
 import pandas as pd
-# import pandas_ta as ta
+
 from ta.trend import SMAIndicator, EMAIndicator, MACD, ADXIndicator, IchimokuIndicator, CCIIndicator, AroonIndicator
 import matplotlib.pyplot as plt
 import matplotlib.dates as mpl_dates

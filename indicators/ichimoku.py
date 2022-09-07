@@ -1,5 +1,4 @@
 import pandas as pd
-import pandas_ta as ta
 import matplotlib.pyplot as plt
 import matplotlib.dates as mpl_dates
 import matplotlib.pyplot as plt

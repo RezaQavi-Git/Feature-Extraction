@@ -21,7 +21,7 @@ WATCH_BACK_COLUMNS = 5
 PERIOD = 14
 
 DURATION = '5m'
-FILE_PATH = 'data\export_{0}_{1}.csv'
+FILE_PATH = 'data/export_{0}_{1}.csv'
 
 EXPORTS_FOLDER = './extracts'
 WRITE_FILE_PATH = 'extracted_{0}_{1}.csv'

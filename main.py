@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-import pandas_ta as ta
+
 import matplotlib.pyplot as plt
 import matplotlib.dates as mpl_dates
 import matplotlib.pyplot as plt
@@ -9,7 +9,6 @@ import requests
 import io
 
 
-from indicators.additional import additional
 from indicators.adx import adx
 from indicators.aroon import aroon
 from indicators.bb import bb
@@ -36,7 +35,6 @@ coins = [
 ]
 
 functions = [
-    additional,
     adx,
     aroon,
     bb,
@@ -110,6 +108,11 @@ def main():
 
     print('End of extraction. enjoy :)')
 
-
+# import time
 if __name__ == "__main__":
+    # start = time.time()
     main()
+    # end = time.time()
+
+    # total time taken
+    # print(f"Runtime of the program is {end - start}")

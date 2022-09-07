@@ -1,5 +1,7 @@
 import pandas as pd
-import pandas_ta as ta
+# import pandas_ta as ta
+from ta.momentum import RSIIndicator, StochRSIIndicator, WilliamsRIndicator, AwesomeOscillatorIndicator
+from ta.volume import MFIIndicator, OnBalanceVolumeIndicator
 import matplotlib.pyplot as plt
 import matplotlib.dates as mpl_dates
 import matplotlib.pyplot as plt
@@ -35,7 +37,7 @@ def count_bellow_candle(l, period, value):
     return counts
 
 def rsi(df):
-    rsi_value = ta.rsi(df[CLOSE_COLUMN], fillna=0)
+    rsi_value = RSIIndicator(df[CLOSE_COLUMN], fillna=True).rsi()
 
     cross_70 = cross_value_from_bottom(rsi_value, value=70)
     cross_30 = cross_value_from_above(rsi_value, value=30)

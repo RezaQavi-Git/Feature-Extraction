@@ -1,5 +1,7 @@
 import pandas as pd
-import pandas_ta as ta
+# import pandas_ta as ta
+from ta.momentum import RSIIndicator, StochRSIIndicator, WilliamsRIndicator, AwesomeOscillatorIndicator
+
 import matplotlib.pyplot as plt
 import matplotlib.dates as mpl_dates
 import matplotlib.pyplot as plt
@@ -15,7 +17,7 @@ from utils.sum_in_period import *
 from utils.trending import trend_down, trend_up
 
 def wr(df):
-    wr_value = ta.willr(df[HIGH_COLUMN], df[LOW_COLUMN], df[CLOSE_COLUMN], fillna=0)
+    wr_value = WilliamsRIndicator(df[HIGH_COLUMN], df[LOW_COLUMN], df[CLOSE_COLUMN], fillna=True).williams_r()
 
     cross_20_bottom = cross_value_from_bottom(wr_value, value=-20)
     cross_20_above = cross_value_from_above(wr_value, value=-20)

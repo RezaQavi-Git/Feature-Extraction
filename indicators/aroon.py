@@ -1,4 +1,4 @@
-import pandas as pd
+from ta.trend import SMAIndicator, EMAIndicator, MACD, ADXIndicator, IchimokuIndicator, CCIIndicator, AroonIndicator
 import pandas_ta as ta
 import matplotlib.pyplot as plt
 import matplotlib.dates as mpl_dates
@@ -17,23 +17,24 @@ from utils.up_down import up_down_line
 
 
 def aroon(df):
-    aroon_value = ta.aroon(df[CLOSE_COLUMN], df[LOW_COLUMN], fillna=0)
+    aroon_value = AroonIndicator(df[CLOSE_COLUMN], fillna=True)
 
     diff_from_up = difference_from_value(df[CLOSE_COLUMN], 100)
     diff_from_down = difference_from_value(df[CLOSE_COLUMN], 0)
 
-    up_cross_70 = cross_value_from_bottom(aroon_value['AROONU_14'], value=70)
-    down_cross_70 = cross_value_from_above(aroon_value['AROOND_14'], value=70)
+    up_cross_70 = cross_value_from_bottom(aroon_value.aroon_up(), value=70)
+    down_cross_70 = cross_value_from_above(aroon_value.aroon_down(), value=70)
 
-    up_cross_down_above = cross_line_from_above(aroon_value['AROONU_14'], aroon_value['AROOND_14'])
-    up_cross_down_below = cross_line_from_bottom(aroon_value['AROONU_14'], aroon_value['AROOND_14'])
+    up_cross_down_above = cross_line_from_above(aroon_value.aroon_up(), aroon_value.aroon_down())
+    up_cross_down_below = cross_line_from_bottom(aroon_value.aroon_up(), aroon_value.aroon_down())
 
-    up_top_down = up_down_line(aroon_value['AROONU_14'], aroon_value['AROOND_14'])
-    down_top_up = up_down_line(aroon_value['AROOND_14'], aroon_value['AROONU_14'])
+    up_top_down = up_down_line(aroon_value.aroon_up(), aroon_value.aroon_down())
+    down_top_up = up_down_line(aroon_value.aroon_down(), aroon_value.aroon_up())
 
     d = {
-        'aroon_up_value': aroon_value['AROONU_14'],
-        'aroon_down_value': aroon_value['AROOND_14'],
+        'aroon_value': aroon_value.aroon_indicator(),
+        'aroon_up_value': aroon_value.aroon_up(),
+        'aroon_down_value': aroon_value.aroon_down(),
         'aroon_up_cross_70': up_cross_70,
         'aroon_down_cross_70': down_cross_70,
         'aroon_diff_from_up': diff_from_up,

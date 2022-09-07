@@ -1,5 +1,6 @@
 import pandas as pd
-import pandas_ta as ta
+# import pandas_ta as ta
+from ta.volatility import BollingerBands
 import matplotlib.pyplot as plt
 import matplotlib.dates as mpl_dates
 import matplotlib.pyplot as plt
@@ -29,23 +30,22 @@ def band_expanding_tightening(upper, lower, period):
 
 
 def bb(df):
-    bb_value = ta.bbands(df[CLOSE_COLUMN], fillna=0)
+    bb_value = BollingerBands(df[CLOSE_COLUMN], fillna=0)
 
-    diff_from_upper_band = difference_from_line(df[CLOSE_COLUMN], bb_value['BBU_5_2.0'])
-    diff_from_lower_band = difference_from_line(df[CLOSE_COLUMN], bb_value['BBL_5_2.0'])
+    diff_from_upper_band = difference_from_line(df[CLOSE_COLUMN], bb_value.bollinger_hband())
+    diff_from_lower_band = difference_from_line(df[CLOSE_COLUMN], bb_value.bollinger_lband())
 
-    diff_from_lower_band = difference_from_line(df[CLOSE_COLUMN], bb_value['BBL_5_2.0'])
-    diff_from_lower_band = difference_from_line(df[CLOSE_COLUMN], bb_value['BBL_5_2.0'])
+    diff_from_lower_band = difference_from_line(df[CLOSE_COLUMN], bb_value.bollinger_lband())
+    diff_from_lower_band = difference_from_line(df[CLOSE_COLUMN], bb_value.bollinger_lband())
 
-    band_state = band_expanding_tightening(bb_value['BBU_5_2.0'], bb_value['BBL_5_2.0'], period=PERIOD)
+    band_state = band_expanding_tightening(bb_value.bollinger_hband(), bb_value.bollinger_lband(), period=PERIOD)
 
-    price_cross_upper_band_bullish = cross_line_bullish(df[CLOSE_COLUMN], bb_value['BBU_5_2.0'])
-    price_cross_lower_band_bearish = cross_line_bearish(df[CLOSE_COLUMN], bb_value['BBU_5_2.0'])
+    price_cross_upper_band_bullish = cross_line_bullish(df[CLOSE_COLUMN], bb_value.bollinger_hband())
+    price_cross_lower_band_bearish = cross_line_bearish(df[CLOSE_COLUMN], bb_value.bollinger_hband())
 
     d = {
-        'bb_upper_value': bb_value['BBU_5_2.0'],
-        'bb_lower_value': bb_value['BBL_5_2.0'],
-        'bb_mid_value': bb_value['BBM_5_2.0'],
+        'bb_upper_value': bb_value.bollinger_hband(),
+        'bb_lower_value': bb_value.bollinger_lband(),
         'bb_diff_from_upper_band': diff_from_upper_band,
         'bb_diff_from_lower_band': diff_from_lower_band,
         'bb_band_state': band_state,

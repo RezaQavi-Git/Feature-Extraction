@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mpl_dates
 import matplotlib.pyplot as plt
 from utils.config import *
+from ta.trend import SMAIndicator, EMAIndicator, MACD, ADXIndicator, IchimokuIndicator, CCIIndicator, AroonIndicator
  
 from utils.basic import create_dataframe
 from utils.cross_line import cross_line_from_above, cross_line_from_bottom
@@ -22,24 +23,24 @@ def cloud_color_detection(close, span_A, span_B):
     return color
 
 def ichimoku(df):
-    ichimoku_value = ta.ichimoku(df[HIGH_COLUMN], df[LOW_COLUMN], df[CLOSE_COLUMN], fillna=0)
+    ichimoku_value = IchimokuIndicator(df[HIGH_COLUMN], df[LOW_COLUMN], fillna=True)
     
-    diff_tenkan_sen_with_close = difference_from_line(ichimoku_value[0]['ITS_9'], df[CLOSE_COLUMN])
-    diff_kijun_sen_with_close = difference_from_line(ichimoku_value[0]['IKS_26'], df[CLOSE_COLUMN])
-    diff_span_A_with_close = difference_from_line(ichimoku_value[0]['ISA_9'], df[CLOSE_COLUMN])
-    diff_span_B_with_close = difference_from_line(ichimoku_value[0]['ISB_26'], df[CLOSE_COLUMN])
-    diff_span_A_with_span_B = difference_from_line(ichimoku_value[0]['ISA_9'], ichimoku_value[0]['ISB_26'])
-    diff_tenkan_with_kijun = difference_from_line(ichimoku_value[0]['ITS_9'], ichimoku_value[0]['IKS_26'])
+    diff_tenkan_sen_with_close = difference_from_line(ichimoku_value.ichimoku_conversion_line(), df[CLOSE_COLUMN])
+    diff_kijun_sen_with_close = difference_from_line(ichimoku_value.ichimoku_base_line(), df[CLOSE_COLUMN])
+    diff_span_A_with_close = difference_from_line(ichimoku_value.ichimoku_a(), df[CLOSE_COLUMN])
+    diff_span_B_with_close = difference_from_line(ichimoku_value.ichimoku_b(), df[CLOSE_COLUMN])
+    diff_span_A_with_span_B = difference_from_line(ichimoku_value.ichimoku_a(), ichimoku_value.ichimoku_b())
+    diff_tenkan_with_kijun = difference_from_line(ichimoku_value.ichimoku_conversion_line(), ichimoku_value.ichimoku_base_line())
 
-    tenkan_cross_kijun = cross_line_from_above(ichimoku_value[0]['ITS_9'], ichimoku_value[0]['IKS_26'])
-    kijun_cross_tenkan = cross_line_from_bottom(ichimoku_value[0]['IKS_26'], ichimoku_value[0]['ITS_9'])
+    tenkan_cross_kijun = cross_line_from_above(ichimoku_value.ichimoku_conversion_line(), ichimoku_value.ichimoku_base_line())
+    kijun_cross_tenkan = cross_line_from_bottom(ichimoku_value.ichimoku_base_line(), ichimoku_value.ichimoku_conversion_line())
 
-    cloud_color = cloud_color_detection(df[CLOSE_COLUMN], ichimoku_value[0]['ISA_9'], ichimoku_value[0]['ISB_26'])
+    cloud_color = cloud_color_detection(df[CLOSE_COLUMN], ichimoku_value.ichimoku_a(), ichimoku_value.ichimoku_b())
     d = {
-        'ichimoku_span_A': ichimoku_value[0]['ISA_9'],
-        'ichimoku_span_B':  ichimoku_value[0]['ISB_26'],
-        'ichimoku_tenkan_sen':  ichimoku_value[0]['ITS_9'],
-        'ichimoku_kijun_sen':  ichimoku_value[0]['IKS_26'],
+        'ichimoku_span_A': ichimoku_value.ichimoku_a(),
+        'ichimoku_span_B':  ichimoku_value.ichimoku_b(),
+        'ichimoku_tenkan_sen':  ichimoku_value.ichimoku_conversion_line(),
+        'ichimoku_kijun_sen':  ichimoku_value.ichimoku_base_line(),
         'ichimoku_diff_span_A_with_close':  diff_span_A_with_close,
         'ichimoku_diff_span_B_with_close':  diff_span_B_with_close,
         'ichimoku_diff_tenkan_sen_with_close':  diff_tenkan_sen_with_close,

@@ -1,5 +1,8 @@
 import pandas as pd
-import pandas_ta as ta
+from ta.momentum import RSIIndicator, StochRSIIndicator, WilliamsRIndicator, AwesomeOscillatorIndicator
+from ta.volume import MFIIndicator, OnBalanceVolumeIndicator
+from ta.trend import SMAIndicator, EMAIndicator, MACD, ADXIndicator, IchimokuIndicator, CCIIndicator, AroonIndicator
+from ta.volatility import BollingerBands
 import matplotlib.pyplot as plt
 import matplotlib.dates as mpl_dates
 import matplotlib.pyplot as plt
@@ -19,24 +22,24 @@ from utils.config import *
 
 
 def adx(df):
-    adx_value = ta.adx(df[HIGH_COLUMN], df[LOW_COLUMN], df[CLOSE_COLUMN], fillna=0)
+    adx_value = ADXIndicator(df[HIGH_COLUMN], df[LOW_COLUMN], df[CLOSE_COLUMN], fillna=True)
 
-    diff_DI_pos_from_neg = difference_from_line(adx_value['DMP_14'], adx_value['DMN_14'])
+    diff_DI_pos_from_neg = difference_from_line(adx_value.adx_pos(), adx_value.adx_neg())
     diff_from_down = difference_from_value(df[CLOSE_COLUMN], 0)
 
-    DI_pos_cross_neg_above = cross_line_from_above(adx_value['DMP_14'], adx_value['DMN_14'])
-    DI_pos_cross_neg_bottom = cross_line_from_bottom(adx_value['DMP_14'], adx_value['DMN_14'])
+    DI_pos_cross_neg_above = cross_line_from_above(adx_value.adx_pos(), adx_value.adx_neg())
+    DI_pos_cross_neg_bottom = cross_line_from_bottom(adx_value.adx_pos(), adx_value.adx_neg())
 
-    DI_pos_top_neg = up_down_line(adx_value['DMP_14'], adx_value['DMN_14'])
-    DI_neg_top_pos = up_down_line(adx_value['DMN_14'], adx_value['DMP_14'])
+    DI_pos_top_neg = up_down_line(adx_value.adx_pos(), adx_value.adx_neg())
+    DI_neg_top_pos = up_down_line(adx_value.adx_neg(), adx_value.adx_pos())
 
-    trending_up = trend_up(adx_value['ADX_14'], period=PERIOD)
-    trending_down = trend_down(adx_value['ADX_14'], period=PERIOD)
+    trending_up = trend_up(adx_value.adx(), period=PERIOD)
+    trending_down = trend_down(adx_value.adx(), period=PERIOD)
 
     d = {
-        'adx_value': adx_value['ADX_14'],
-        'adx_DI_pos': adx_value['DMP_14'],
-        'adx_DI_neg': adx_value['DMN_14'],
+        'adx_value': adx_value.adx(),
+        'adx_DI_pos': adx_value.adx_pos(),
+        'adx_DI_neg': adx_value.adx_neg(),
         'adx_diff_DI_pos_from_neg': diff_DI_pos_from_neg,
         'adx_diff_from_down': diff_from_down,
         'adx_DI_pos_cross_neg_above': DI_pos_cross_neg_above,

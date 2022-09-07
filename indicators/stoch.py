@@ -1,5 +1,7 @@
 import pandas as pd
-import pandas_ta as ta
+# import pandas_ta as ta
+from ta.momentum import RSIIndicator, StochRSIIndicator, WilliamsRIndicator, AwesomeOscillatorIndicator
+
 import matplotlib.pyplot as plt
 import matplotlib.dates as mpl_dates
 import matplotlib.pyplot as plt
@@ -16,33 +18,29 @@ STOCH_K_DEFULT = 14
 STOCH_D_DEFULT = 3
 
 def stoch(df):
-    stoch_value = ta.stoch(df[HIGH_COLUMN], df[LOW_COLUMN], df[CLOSE_COLUMN], k=STOCH_K_DEFULT, d=STOCH_D_DEFULT, fillna=0)
-    stochrsi_value = ta.stochrsi(df[CLOSE_COLUMN], k=STOCH_K_DEFULT, d=STOCH_D_DEFULT, fillna=0)
-    extra = pd.Series([0] * (STOCH_K_DEFULT-1))
-    stoch_k = pd.concat([extra,stoch_value['STOCHk_14_3_3']],axis=0)
-    stoch_d = pd.concat([extra,stoch_value['STOCHd_14_3_3']],axis=0)
-    K_cross_20_above = cross_value_from_above(stoch_k, 20)
-    K_cross_20_bottom = cross_value_from_bottom(stoch_k, 20)
-    K_cross_50_above = cross_value_from_above(stoch_k, 50)
-    K_cross_50_bottom = cross_value_from_bottom(stoch_k, 50)
-    K_cross_80_above = cross_value_from_above(stoch_k, 80)
-    K_cross_80_bottom = cross_value_from_bottom(stoch_k, 80)
+    stoch_value = StochRSIIndicator(df[CLOSE_COLUMN], fillna=True)
+    K_cross_20_above = cross_value_from_above(stoch_value.stochrsi_k(), 20)
+    K_cross_20_bottom = cross_value_from_bottom(stoch_value.stochrsi_k(), 20)
+    K_cross_50_above = cross_value_from_above(stoch_value.stochrsi_k(), 50)
+    K_cross_50_bottom = cross_value_from_bottom(stoch_value.stochrsi_k(), 50)
+    K_cross_80_above = cross_value_from_above(stoch_value.stochrsi_k(), 80)
+    K_cross_80_bottom = cross_value_from_bottom(stoch_value.stochrsi_k(), 80)
 
-    D_cross_20_above = cross_value_from_above(stoch_d, 20)
-    D_cross_20_bottom = cross_value_from_bottom(stoch_d, 20)
-    D_cross_50_above = cross_value_from_above(stoch_d, 50)
-    D_cross_50_bottom = cross_value_from_bottom(stoch_d, 50)
-    D_cross_80_above = cross_value_from_above(stoch_d, 80)
-    D_cross_80_bottom = cross_value_from_bottom(stoch_d, 80)
+    D_cross_20_above = cross_value_from_above(stoch_value.stochrsi_d(), 20)
+    D_cross_20_bottom = cross_value_from_bottom(stoch_value.stochrsi_d(), 20)
+    D_cross_50_above = cross_value_from_above(stoch_value.stochrsi_d(), 50)
+    D_cross_50_bottom = cross_value_from_bottom(stoch_value.stochrsi_d(), 50)
+    D_cross_80_above = cross_value_from_above(stoch_value.stochrsi_d(), 80)
+    D_cross_80_bottom = cross_value_from_bottom(stoch_value.stochrsi_d(), 80)
 
-    K_cross_D_bullish = cross_line_bullish(stoch_k, stoch_d)
-    K_cross_D_bearish = cross_line_bearish(stoch_k, stoch_d)
+    K_cross_D_bullish = cross_line_bullish(stoch_value.stochrsi_k(), stoch_value.stochrsi_d())
+    K_cross_D_bearish = cross_line_bearish(stoch_value.stochrsi_k(), stoch_value.stochrsi_d())
 
 
     d = {
-        # 'stochrsi_value': stochrsi_value,
-        'stoch_K_value': stoch_k,
-        'stoch_D_value':stoch_d,
+        'stochrsi_value': stoch_value.stochrsi(),
+        'stoch_K_value': stoch_value.stochrsi_k(),
+        'stoch_D_value':stoch_value.stochrsi_d(),
         'stoch_K_cross_20_above':K_cross_20_above,
         'stoch_K_cross_20_bottom': K_cross_20_bottom,
         'stoch_K_cross_50_above':K_cross_50_above,

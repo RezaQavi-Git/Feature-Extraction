@@ -37,18 +37,18 @@ coins = [
 functions = [
     adx,
     aroon,
-    bb,
-    cci,
-    ema,
-    ichimoku,
-    macd,
-    mfi,
-    rsi,
-    sma,
-    stoch,
-    wr,
-    trend,
-    SR
+    # bb,
+    # cci,
+    # ema,
+    # ichimoku,
+    # macd,
+    # mfi,
+    # rsi,
+    # sma,
+    # stoch,
+    # wr,
+    # trend,
+    # SR
 ]
 
 def fill_nan(df):
@@ -94,25 +94,20 @@ def create_features_dataframe(df):
     return features_df
 
 
-def main():
-    print('Start extrarting features : ...')
-    for c in coins:
-        print('\t Strat {0} feature extraction . . . '.format(c))
-        df = load_dataframe(c)
+def main(df):
+    # print('Start extrarting features : ...')
+    # for c in coins:
+        # print('\t Strat {0} feature extraction . . . '.format(c))
+        # df = load_dataframe(c)
 
-        features = create_features_dataframe(df)
-        extracted_df = pd.concat([df, features], axis=1)
+    features = create_features_dataframe(df)
+    extracted_df = pd.concat([df, features], axis=1)
 
-        write_to_file(extracted_df, WRITE_FILE_PATH.format(c, DURATION))
-        print('\t Stop {0} feature extraction.You can find result in this path : {1}'.format(c, EXPORTS_FOLDER + '/' + WRITE_FILE_PATH.format(c, DURATION)))
+    return extracted_df
+        # write_to_file(extracted_df, WRITE_FILE_PATH.format(c, DURATION))
+        # print('\t Stop {0} feature extraction.You can find result in this path : {1}'.format(c, EXPORTS_FOLDER + '/' + WRITE_FILE_PATH.format(c, DURATION)))
 
-    print('End of extraction. enjoy :)')
+    # print('End of extraction. enjoy :)')
 
-# import time
-if __name__ == "__main__":
-    # start = time.time()
-    main()
-    # end = time.time()
-
-    # total time taken
-    # print(f"Runtime of the program is {end - start}")
+def extract(df):
+    return main(df)

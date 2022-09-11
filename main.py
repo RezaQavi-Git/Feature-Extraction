@@ -1,32 +1,23 @@
 import os
 import pandas as pd
 
-import matplotlib.pyplot as plt
-import matplotlib.dates as mpl_dates
-import matplotlib.pyplot as plt
-import csv
-import requests
-import io
+from .indicators.adx import adx
+from .indicators.aroon import aroon
 
+from .indicators.bb import bb
+from .indicators.wr import wr
+from .indicators.SR import SR
+from .indicators.cci import cci
+from .indicators.ema import ema
+from .indicators.mfi import mfi
+from .indicators.rsi import rsi
+from .indicators.sma import sma
+from .indicators.macd import macd
+from .indicators.stoch import stoch
+from .indicators.trend import trend
+from .indicators.ichimoku import ichimoku
 
-from indicators.adx import adx
-from indicators.aroon import aroon
-from indicators.bb import bb
-from indicators.cci import cci
-from indicators.ema import ema
-
-from indicators.ichimoku import ichimoku
-from indicators.macd import macd
-from indicators.mfi import mfi
-from indicators.rsi import rsi
-from indicators.sma import sma
-from indicators.stoch import stoch
-from indicators.trend import trend
-from indicators.wr import wr
-from indicators.SR import SR
-from utils.config import DURATION, EXPORTS_FOLDER, FILE_PATH, GET_URL, WRITE_FILE_PATH
-
-
+from .utils.config import DURATION, EXPORTS_FOLDER, FILE_PATH, GET_URL, WRITE_FILE_PATH
 
 coins = [
     'BTCUSDT',
@@ -37,16 +28,16 @@ coins = [
 functions = [
     adx,
     aroon,
-    # bb,
-    # cci,
+    bb,
+    cci,
     # ema,
     # ichimoku,
     # macd,
-    # mfi,
-    # rsi,
+    mfi,
+    rsi,
     # sma,
     # stoch,
-    # wr,
+    #wr,
     # trend,
     # SR
 ]
@@ -86,7 +77,7 @@ def create_features_dataframe(df):
     df_list = []
 
     for i in range(len(functions)):
-        df_ = fill_nan(functions[i](df))
+        df_ = (functions[i](df))
         df_list.append(df_)
 
     features_df = pd.concat(df_list, axis=1)
